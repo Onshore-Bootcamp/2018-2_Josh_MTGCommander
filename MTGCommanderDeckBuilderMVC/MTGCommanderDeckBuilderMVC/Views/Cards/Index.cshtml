@@ -1,0 +1,97 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+
+@model List<CardPO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData.ContainsKey("Message"))
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>Card Catalog</h2>
+    </div>
+    <div class="scrollbox">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.LabelFor(model => Model[0].CardName)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].ManaCost)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].CardType)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].ColorIdentity)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].Abilities)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].CardStats)
+                    </th>
+                    @if (Session["RoleID"] != null && (int)Session["RoleID"] < 4)
+                    {
+                        <th>
+                            <label>
+                                Actions
+                            </label>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (CardPO item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.CardName
+                            </td>
+                            <td>
+                                @item.ManaCost
+                            </td>
+                            <td>
+                                @item.CardType
+                            </td>
+                            <td>
+                                @item.ColorIdentity
+                            </td>
+                            <td>
+                                @item.Abilities
+                            </td>
+                            <td>
+                                @item.CardStats
+                            </td>
+                            @if (Session["RoleID"] != null && (int)Session["RoleID"] < 4)
+                            {
+                                <td>
+                                    @if (Session["RoleID"] != null && (int)Session["RoleID"] < 3)
+                                    {
+                                        @Html.ActionLink(" Update ", "Update", "Cards", new { cardID = item.CardID }, new { @class = "btn btn-default btn-sm" })
+                                        @Html.ActionLink(" Delete ", "Delete", "Cards", new { cardID = item.CardID }, new { @class = "btn btn-default btn-sm", @onclick = "return confirmDelete()" })
+                                    }
+                                    @if (Session["UserID"] != null)
+                                    {
+                                        @Html.ActionLink(" Add To Deck ", "SelectDeck", "CardsInDecks", new { cardID = item.CardID }, new { @class = "btn btn-default btn-sm" })
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>>
+</body>
+<script src="~/Scripts/Main.js"></script>

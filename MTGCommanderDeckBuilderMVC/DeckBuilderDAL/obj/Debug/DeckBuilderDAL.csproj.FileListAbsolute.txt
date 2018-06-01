@@ -1,0 +1,6 @@
+C:\Users\JoshDickey\Documents\Projects\Capstone\MTGCommanderDeckBuilderMVC\DeckBuilderDAL\bin\Debug\DeckBuilderDAL.dll
+C:\Users\JoshDickey\Documents\Projects\Capstone\MTGCommanderDeckBuilderMVC\DeckBuilderDAL\bin\Debug\DeckBuilderDAL.pdb
+C:\Users\JoshDickey\Documents\Projects\Capstone\MTGCommanderDeckBuilderMVC\DeckBuilderDAL\obj\Debug\DeckBuilderDAL.csproj.CoreCompileInputs.cache
+C:\Users\JoshDickey\Documents\Projects\Capstone\MTGCommanderDeckBuilderMVC\DeckBuilderDAL\obj\Debug\DeckBuilderDAL.dll
+C:\Users\JoshDickey\Documents\Projects\Capstone\MTGCommanderDeckBuilderMVC\DeckBuilderDAL\obj\Debug\DeckBuilderDAL.pdb
+C:\Users\JoshDickey\Documents\Projects\Capstone\MTGCommanderDeckBuilderMVC\DeckBuilderDAL\obj\Debug\DeckBuilderDAL.csprojResolveAssemblyReference.cache

@@ -1,0 +1,75 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+@model UserPO
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData["Message"] != null)
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+
+    @if (Session["RoleID"] != null && (int)Session["RoleID"] == 1)
+    {
+        <div class="row text-center">
+            <h2>Create New User</h2>
+        </div>
+    }
+    else
+    {
+        <div class="row text-center">
+            <h2>Register User</h2>
+        </div>
+    }
+
+    @using (Html.BeginForm("Create", "Account", FormMethod.Post))
+    {
+        <div class="form">
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.Username)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Username, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.Password)
+                <div class="form-group">
+                    @Html.PasswordFor(model => Model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Password, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.FirstName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.FirstName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.LastName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.EmailAddress)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.EmailAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.EmailAddress, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <input type="submit" value="Register" />
+        </div>
+    }
+</body>

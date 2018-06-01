@@ -1,0 +1,69 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models;
+
+@model CardPO
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData.ContainsKey("Message"))
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>Update Card</h2>
+    </div>
+    @using (Html.BeginForm("Update", "Cards", FormMethod.Post))
+    {
+        <div class="form">
+            @Html.HiddenFor(model => Model.CardID)
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.CardName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.CardName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.CardName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.ManaCost)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.ManaCost, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.ManaCost, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.CardType)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.CardType, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.CardType, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.ColorIdentity)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.ColorIdentity, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.ColorIdentity, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.Abilities)
+                <div class="form-group">
+                    @Html.TextAreaFor(model => Model.Abilities, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Abilities, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.CardStats)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.CardStats, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.CardStats, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <input type="submit" value="Update Card" onclick="return confirmUpdate()" />
+        </div>
+    }
+</body>
+<script src="~/Scripts/Main.js"></script>

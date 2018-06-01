@@ -1,0 +1,76 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+@model UserPO
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData["Message"] != null)
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>Update Account</h2>
+    </div>
+    @using (Html.BeginForm("Update", "Account", FormMethod.Post))
+    {
+        <div class="form">
+            @Html.HiddenFor(model => Model.UserID)
+            @Html.HiddenFor(model => Model.Password)
+            @if (Session["RoleID"] != null && Session["RoleID"].Equals(1) && Model.RoleID != 1)
+            {
+                <div class="form-horizontal">
+                    <label>Role Name</label>
+                    <div class="form-group">
+                        <select id="roleName" name="roleID">
+                            <option value="3">Player</option>
+                            <option value="2">Moderator</option>
+                            <option value="1">Administrator</option>
+                        </select>
+                    </div>
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(model => Model.RoleID)
+            }
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.Username)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Username, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.FirstName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.FirstName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.LastName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.LastName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal ">
+                @Html.LabelFor(model => Model.EmailAddress)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.EmailAddress, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.EmailAddress, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <input type="submit" value="Update Account" onclick="return confirmUpdate()" />
+            @Html.ActionLink("Change Password", "UpdatePassword", "Account", new { userID = Model.UserID }, new { @class = "btn btn-sm btn-danger"})
+        </div>
+    }
+</body>
+<script src="~/Scripts/Main.js"></script>

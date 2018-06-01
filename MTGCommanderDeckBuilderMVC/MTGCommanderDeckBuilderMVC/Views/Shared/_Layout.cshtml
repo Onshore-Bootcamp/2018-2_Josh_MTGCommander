@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("MTGEDH Deck-Builder", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <div class="btn-group nav navbar-nav navbar-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Cards <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li style="border:groove">@Html.ActionLink("Card Catalog", "Index", "Cards")</li>
+                                @if (Session["RoleID"] != null && (int)Session["RoleID"] < 3)
+                                {
+                                    <li style="border:groove">@Html.ActionLink("Add Card to Catalog", "Create", "Cards")</li>
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="btn-group nav navbar-nav navbar-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Decks <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li style="border:groove">@Html.ActionLink("Deck Catalog", "Index", "Deck")</li>
+                                @if (Session["RoleID"] != null && (int)Session["RoleID"] < 4)
+                                {
+                                    <li style="border:groove">@Html.ActionLink("Create a Deck", "Create", "Deck")</li>
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                    @if (Session["RoleID"] != null && (int)Session["RoleID"] == 1)
+                    {
+                        <li>
+                            <div class="btn-group nav navbar-nav navbar-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Users <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li style="border:groove">@Html.ActionLink("View Users", "Index", "Account")</li>
+                                    <li style="border:groove">@Html.ActionLink("Add User", "Create", "Account")</li>
+                                </ul>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="btn-group nav navbar-nav navbar-btn">
+                            @if (Session["UserID"] != null)
+                            {
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    @((string)Session["Username"]) <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li style="border:groove">@Html.ActionLink("Your Decks", "UserDecks", "Deck", new { userID = (long)Session["UserID"] }, null)</li>
+                                    <li style="border:groove">@Html.ActionLink("Update Account", "Update", "Account", new { userID = (long)Session["UserID"] }, null)</li>
+                                    <li style="border:groove">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                                </ul>
+                            }
+                            else
+                            {
+                                    @Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-default navbar-nav" })
+                                    @Html.ActionLink("Register", "Create", "Account", null, new { @class = "btn btn-default navbar-nav" })
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

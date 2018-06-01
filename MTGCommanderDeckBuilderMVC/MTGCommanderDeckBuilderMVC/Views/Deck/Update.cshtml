@@ -1,0 +1,56 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+
+@model DeckPO
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData.ContainsKey("Message"))
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>Update Deck</h2>
+    </div>
+    @using (Html.BeginForm("Update", "Deck", FormMethod.Post))
+    {
+        <div class="form">
+            @Html.HiddenFor(model => Model.DeckID)
+            @Html.HiddenFor(model => Model.UserID)
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.DeckName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.DeckName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.DeckName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.CommanderName)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.CommanderName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.CommanderName, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.DeckColors)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.DeckColors, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.DeckColors, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.DeckArchetype)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.DeckArchetype, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.DeckArchetype, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <input type="submit" value="Update Deck" onclick="return confirmUpdate()" />
+        </div>
+    }
+</body>
+<script src="~/Scripts/Main.js"></script>

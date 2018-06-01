@@ -1,0 +1,40 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+@model LoginPO
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData["Message"] != null)
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>Login</h2>
+    </div>
+
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        <div class="form">
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.Username)
+                <div class="form-group">
+                    @Html.TextBoxFor(model => Model.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Username, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+
+            <div class="form-horizontal">
+                @Html.LabelFor(model => Model.Password)
+                <div class="form-group">
+                    @Html.PasswordFor(model => Model.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => Model.Password, "", new { @class = "label label-danger" })
+                </div>
+            </div>
+            <input type="submit" value="Login" />
+        </div>
+    }
+</body>

@@ -1,0 +1,81 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+
+@model List<DeckPO>
+@{
+    ViewBag.Title = "UserDecks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData.ContainsKey("Message"))
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>Your Decks</h2>
+    </div>
+    <div class="scrollbox">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.LabelFor(model => Model[0].DeckName)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].CommanderName)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].DeckColors)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].DeckArchetype)
+                    </th>
+                    @if (Session["RoleID"] != null && (int)Session["RoleID"] < 4)
+                    {
+                        <th>
+                            <label>
+                                Actions
+                            </label>
+                        </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (DeckPO item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.DeckName
+                            </td>
+                            <td>
+                                @item.CommanderName
+                            </td>
+                            <td>
+                                @item.DeckColors
+                            </td>
+                            <td>
+                                @item.DeckArchetype
+                            </td>
+                            <td>
+                                @if ((Session["RoleID"] != null && (int)Session["RoleID"] < 3) ||
+                                     (Session["UserID"] != null && (long)Session["UserID"] == item.UserID))
+                                {
+                                    @Html.ActionLink("Update", "Update", "Deck", new { deckID = item.DeckID }, new { @class = "btn btn-default btn-sm" })
+                                    @Html.ActionLink("Delete", "Delete", "Deck", new { deckID = item.DeckID }, new { @class = "btn btn-default btn-sm", @onclick = "return confirmDelete()" })
+                                    @Html.ActionLink("Card List", "Index", "CardsInDecks", new { deckID = item.DeckID }, new { @class = "btn btn-default btn-sm" })
+
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="~/Scripts/Main.js"></script>

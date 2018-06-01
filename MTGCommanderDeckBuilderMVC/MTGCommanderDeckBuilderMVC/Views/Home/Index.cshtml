@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+<link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData.ContainsKey("Message"))
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="jumbotron">
+        <h1>Magic The Gathering Commander (EDH) Deck Builder</h1>
+        @if (Session["UserID"] == null)
+        {
+            <p class="lead">
+                This Magic the Gather Commander Deck Builder is intended to be a helpful
+                tool for anyone in the beginning stages of creating a Commander format deck.  Feel
+                free to look around at our card and deck catalogues, but to make your own decks you'll
+                need to register.
+            </p>
+            <p><a href="http://localhost:49255/Account/Create" class="btn btn-primary btn-lg">Create An Account &raquo;</a></p>
+        }
+        else
+        {
+            <p><a href="http://localhost:49255/Deck/Create" class="btn btn-primary btn-lg">Create A Deck &raquo;</a></p>
+        }
+    </div>
+</body>

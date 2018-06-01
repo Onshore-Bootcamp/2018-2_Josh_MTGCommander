@@ -1,0 +1,82 @@
+﻿@using MTGCommanderDeckBuilderMVC.Models
+
+@model List<UserPO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Main.css">
+</head>
+<body>
+    @if (TempData.ContainsKey("Message"))
+    {
+        <h5>@TempData["Message"]</h5>
+    }
+    <div class="row text-center">
+        <h2>View Users</h2>
+    </div>
+    <div class="scrollbox">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.LabelFor(model => Model[0].Username)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].FirstName)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].LastName)
+                    </th>
+                    <th>
+                        @Html.LabelFor(model => Model[0].EmailAddress)
+                    </th>
+                    <th>
+                        Role Name
+                    </th>
+                    <th>
+                        <label>
+                            Actions
+                        </label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    for (int i = 0;i < Model.Count;i++)
+                    {
+                        <tr>
+                            <td>
+                                @Model[i].Username
+                            </td>
+                            <td>
+                                @Model[i].FirstName
+                            </td>
+                            <td>
+                                @Model[i].LastName
+                            </td>
+                            <td>
+                                @Model[i].EmailAddress
+                            </td>
+                            <td>
+                                @ViewBag.roleNames[i]
+                            </td>
+                            <td>
+                                @Html.ActionLink(" Update ", "Update", "Account", new { userID = Model[i].UserID }, new { @class = "btn btn-default btn-sm" })
+
+                                @if (Model[i].RoleID != 1)
+                                {
+                                        @Html.ActionLink(" Delete ", "Delete", "Account", new { userID = Model[i].UserID }, new { @class = "btn btn-default btn-sm" ,@onclick = "return confirmDelete()" })
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="~/Scripts/Main.js"></script>
